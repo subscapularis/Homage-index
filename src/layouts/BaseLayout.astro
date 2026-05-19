@@ -1,0 +1,174 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+
+const {
+  title = 'Homage Index — Luxury Watch Homages, Ranked',
+  description = 'Find the most visually accurate homage for every luxury watch. Side-by-side comparisons, similarity scores, and direct links to buy.',
+  canonicalUrl,
+  ogImage = '/og-default.jpg',
+} = Astro.props;
+
+const canonical = canonicalUrl ?? Astro.url.href;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#faf9f6" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Homage Index",
+      "url": "https://homageindex.com",
+      "description": "Luxury watch homage comparisons with similarity scores",
+    })}
+  </script>
+
+  <!-- Preconnect for fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <Font cssVariable="--font-display" preload />
+  <Font cssVariable="--font-body" preload />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="wordmark" aria-label="Homage Index home">
+        <span class="wordmark-sub t-label">Est. 2025</span>
+        <span class="wordmark-title">Homage Index</span>
+        <span class="wordmark-tag t-label">Luxury inspiration · Accessible price</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-link t-label">All Pairs</a>
+        <a href="/about" class="nav-link t-label">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="t-label footer-note">
+        Homage Index contains affiliate links. We may earn a small commission if you purchase through our links, at no extra cost to you. All similarity scores are editorial judgments.
+      </p>
+      <p class="t-label footer-copy">© {new Date().getFullYear()} Homage Index</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+/* ── Site header ── */
+.site-header {
+  border-bottom: 0.5px solid #e0ddd6;
+  background: #faf9f6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.wordmark-sub {
+  color: var(--color-ink-faint);
+}
+
+.wordmark-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 300;
+  font-style: normal;
+  font-variant-numeric: lining-nums;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.wordmark-tag {
+  color: var(--color-ink-faint);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .wordmark-tag { display: block; }
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--color-ink-muted);
+  transition: color var(--transition);
+}
+
+.nav-link:hover { color: var(--color-ink); }
+
+/* ── Footer ── */
+.site-footer {
+  border-top: 0.5px solid #e0ddd6;
+  margin-top: 4rem;
+  padding: 2rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-note {
+  color: var(--color-ink-faint);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.footer-copy {
+  color: var(--color-ink-faint);
+}
+</style>

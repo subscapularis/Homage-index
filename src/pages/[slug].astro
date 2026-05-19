@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WatchCard from '../components/WatchCard.astro';
+import ScoreBridge from '../components/ScoreBridge.astro';
+import { pairs, getPairBySlug, getAllSlugs } from '../data/pairs.js';
+
+export function getStaticPaths() {
+  return getAllSlugs().map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const pair = getPairBySlug(slug);
+
+if (!pair) return Astro.redirect('/404');
+
+const savings = pair.luxury.price - pair.homage.price;
+const savingsPct = Math.round((savings / pair.luxury.price) * 100);
+
+// Structured data for this pair page
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pair.seo.title,
+  "description": pair.seo.description,
+  "url": `https://homageindex.com/${pair.seo.slug}`,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Homage Index",
+    "url": "https://homageindex.com"
+  }
+};
+---
+
+<BaseLayout
+  title={pair.seo.title}
+  description={pair.seo.description}
+  canonicalUrl={`https://homageindex.com/${pair.seo.slug}`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} slot="head" />
+
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/" class="t-label bc-link">All Pairs</a>
+      <span class="t-label bc-sep" aria-hidden="true">→</span>
+      <span class="t-label bc-current">{pair.luxury.brand} {pair.luxury.model}</span>
+    </nav>
+
+    <!-- Page heading -->
+    <header class="page-header">
+      <p class="t-label page-eyebrow">{pair.category} · Pair {pair.pairNumber}</p>
+      <h1 class="page-title">
+        The Best {pair.luxury.brand} {pair.luxury.model} Homage
+      </h1>
+      <p class="page-sub">
+        Save ${savings.toLocaleString('en-US')} ({savingsPct}%) with a {pair.matchScore}/100 visual match.
+      </p>
+    </header>
+
+    <!-- Comparison -->
+    <section class="comparison-section" aria-label="Watch comparison">
+      <div class="comparison-layout">
+        <div class="col-luxury">
+          <WatchCard watch={pair.luxury} variant="luxury" />
+        </div>
+        <div class="col-bridge col-bridge--mobile">
+          <ScoreBridge
+            matchScore={pair.matchScore}
+            luxuryPrice={pair.luxury.price}
+            homagePrice={pair.homage.price}
+          />
+        </div>
+        <div class="col-homage">
+          <WatchCard watch={pair.homage} variant="homage" />
+        </div>
+        <div class="col-bridge col-bridge--desktop" aria-hidden="true">
+          <ScoreBridge
+            matchScore={pair.matchScore}
+            luxuryPrice={pair.luxury.price}
+            homagePrice={pair.homage.price}
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial content — this is your SEO body -->
+    <section class="editorial" aria-label="Full analysis">
+
+      <h2 class="ed-heading">Why the {pair.homage.brand} {pair.homage.model}?</h2>
+      <p class="ed-body">
+        <!-- Replace this with real editorial content per pair -->
+        The {pair.homage.brand} {pair.homage.model} scores {pair.matchScore} out of 100 for visual
+        similarity to the {pair.luxury.brand} {pair.luxury.model}. At ${pair.homage.price.toLocaleString('en-US')}
+        versus the {pair.luxury.brand}'s retail price of ${pair.luxury.price.toLocaleString('en-US')},
+        you save {savingsPct}% without meaningfully compromising on the design that made the original iconic.
+      </p>
+
+      <h2 class="ed-heading">What the homage gets right</h2>
+      <p class="ed-body">
+        Add your editorial notes here. Dial finishing, hand set accuracy, bezel insert quality,
+        bracelet feel, lume application. This is where the community knowledge lives.
+      </p>
+
+      <h2 class="ed-heading">Where it cuts corners</h2>
+      <p class="ed-body">
+        Be honest here — movement quality difference, finishing on hidden surfaces,
+        bracelet taper, end links, clasp. Your readers respect honesty over cheerleading.
+      </p>
+
+      <h2 class="ed-heading">Who should buy this</h2>
+      <p class="ed-body">
+        New to watches and want to try the look before committing to the real thing?
+        Daily wearer who doesn't want anxiety over scratches? Collector who wants the design
+        on a beater? Be specific. Specific recommendations convert.
+      </p>
+
+    </section>
+
+    <!-- Back link -->
+    <div class="back-row">
+      <a href="/" class="t-label back-link">← Back to all pairs</a>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+/* ── Breadcrumb ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 0 0;
+}
+.bc-link { color: var(--color-ink-muted); }
+.bc-link:hover { color: var(--color-ink); }
+.bc-sep, .bc-current { color: var(--color-ink-faint); }
+
+/* ── Page header ── */
+.page-header {
+  padding: 2rem 0 2.5rem;
+  border-bottom: 0.5px solid #e0ddd6;
+  max-width: 600px;
+}
+
+.page-eyebrow {
+  color: var(--color-ink-faint);
+  margin-bottom: 0.75rem;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300;
+  font-style: normal;
+  font-variant-numeric: lining-nums;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+}
+
+.page-sub {
+  color: var(--color-ink-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Comparison layout ── */
+.comparison-section {
+  padding: 2.5rem 0;
+  border-bottom: 0.5px solid #e0ddd6;
+}
+
+.comparison-layout {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--card-max);
+  margin: 0 auto;
+}
+
+.col-bridge--desktop { display: none; }
+.col-bridge--mobile  { display: block; }
+
+@media (min-width: 768px) {
+  .comparison-layout {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    grid-template-areas: "luxury bridge homage";
+    align-items: center;
+    max-width: 900px;
+  }
+
+  .col-luxury  { grid-area: luxury; }
+  .col-homage  { grid-area: homage; }
+
+  .col-bridge--desktop {
+    display: flex;
+    grid-area: bridge;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .col-bridge--desktop::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 0.5px;
+    background: #e0ddd6;
+  }
+
+  .col-bridge--mobile { display: none; }
+}
+
+/* ── Editorial ── */
+.editorial {
+  max-width: 640px;
+  padding: 3rem 0;
+  border-bottom: 0.5px solid #e0ddd6;
+}
+
+.ed-heading {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: normal;
+  font-variant-numeric: lining-nums;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+.ed-heading:first-child { margin-top: 0; }
+
+.ed-body {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-ink-muted);
+}
+
+/* ── Back ── */
+.back-row {
+  padding: 2rem 0;
+}
+
+.back-link {
+  color: var(--color-ink-muted);
+  transition: color var(--transition);
+}
+
+.back-link:hover { color: var(--color-ink); }
+</style>

@@ -1,0 +1,143 @@
+---
+import WatchCard from './WatchCard.astro';
+import ScoreBridge from './ScoreBridge.astro';
+
+const { pair, headingLevel = 'h2' } = Astro.props;
+const HeadingTag = headingLevel;
+---
+
+<article class="pair" id={pair.id} aria-label={`${pair.luxury.brand} ${pair.luxury.model} vs ${pair.homage.brand} ${pair.homage.model}`}>
+
+  <!-- Pair meta -->
+  <div class="pair-meta">
+    <span class="t-label pair-number">Pair {pair.pairNumber}</span>
+    <span class="t-label pair-category">{pair.category}</span>
+  </div>
+
+  <!-- Mobile: vertical stack | Desktop: side by side -->
+  <div class="pair-layout">
+
+    <!-- Left / Top: luxury -->
+    <div class="pair-luxury">
+      <WatchCard watch={pair.luxury} variant="luxury" />
+    </div>
+
+    <!-- Center: bridge (hidden on desktop, shown between cards on mobile) -->
+    <div class="pair-bridge pair-bridge--mobile">
+      <ScoreBridge
+        matchScore={pair.matchScore}
+        luxuryPrice={pair.luxury.price}
+        homagePrice={pair.homage.price}
+      />
+    </div>
+
+    <!-- Right / Bottom: homage -->
+    <div class="pair-homage">
+      <WatchCard watch={pair.homage} variant="homage" />
+    </div>
+
+    <!-- Desktop-only bridge sits between the two columns -->
+    <div class="pair-bridge pair-bridge--desktop" aria-hidden="true">
+      <ScoreBridge
+        matchScore={pair.matchScore}
+        luxuryPrice={pair.luxury.price}
+        homagePrice={pair.homage.price}
+      />
+    </div>
+
+  </div>
+
+  <!-- View full comparison link -->
+  <div class="pair-footer">
+    <a href={`/${pair.seo.slug}`} class="t-label pair-link">
+      Full comparison & analysis →
+    </a>
+  </div>
+
+</article>
+
+<style>
+/* ── Pair wrapper ── */
+.pair {
+  margin-bottom: 3.5rem;
+}
+
+.pair-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.pair-number,
+.pair-category {
+  color: var(--color-ink-faint);
+}
+
+/* ── Mobile layout: single column ── */
+.pair-layout {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pair-bridge--desktop { display: none; }
+.pair-bridge--mobile  { display: block; }
+
+/* ── Desktop layout: two columns ── */
+@media (min-width: 768px) {
+  .pair-layout {
+    display: grid;
+    /* luxury takes slightly more visual weight */
+    grid-template-columns: 1fr 80px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "luxury bridge homage";
+    align-items: center;
+    gap: 0;
+  }
+
+  .pair-luxury  { grid-area: luxury; }
+  .pair-homage  { grid-area: homage; }
+
+  .pair-bridge--desktop {
+    display: flex;
+    grid-area: bridge;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+  }
+
+  /* vertical line connecting cards on desktop */
+  .pair-bridge--desktop::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 0.5px;
+    background: #e0ddd6;
+  }
+
+  .pair-bridge--mobile { display: none; }
+}
+
+/* ── Footer link ── */
+.pair-footer {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.pair-link {
+  color: var(--color-ink-muted);
+  transition: color var(--transition);
+  border-bottom: 0.5px solid transparent;
+  padding-bottom: 1px;
+}
+
+.pair-link:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink-faint);
+}
+</style>

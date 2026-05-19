@@ -1,17 +1,132 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PairCard from '../components/PairCard.astro';
+import { pairs } from '../data/pairs.js';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Homage Index — Luxury Watch Homages, Ranked"
+  description="Find the most visually accurate homage for every luxury watch. Side-by-side comparisons, similarity scores, and direct links to buy."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="t-label hero-eyebrow">The definitive resource</p>
+      <h1 class="hero-title">Luxury watches.<br/>Accessible prices.</h1>
+      <p class="hero-sub">
+        Every pair ranked by visual similarity. Every homage linked directly to buy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter bar — extend later with JS filtering by category -->
+  <section class="filter-bar">
+    <div class="container filter-inner">
+      <span class="t-label filter-label">Browse by</span>
+      <div class="filter-chips" role="list">
+        <span class="filter-chip filter-chip--active t-label" role="listitem">All</span>
+        <span class="filter-chip t-label" role="listitem">Dive</span>
+        <span class="filter-chip t-label" role="listitem">Dress Sports</span>
+        <span class="filter-chip t-label" role="listitem">Pilot</span>
+        <span class="filter-chip t-label" role="listitem">Dress</span>
+      </div>
+      <span class="t-label pair-count">{pairs.length} pairs</span>
+    </div>
+  </section>
+
+  <!-- Pair directory -->
+  <section class="directory">
+    <div class="container">
+      {pairs.map((pair, i) => (
+        <PairCard pair={pair} headingLevel={i === 0 ? 'h2' : 'h2'} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+/* ── Hero ── */
+.hero {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 0.5px solid #e0ddd6;
+}
+
+.hero-eyebrow {
+  color: var(--color-ink-faint);
+  margin-bottom: 0.75rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  font-style: normal;
+  font-variant-numeric: lining-nums;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: 1rem;
+}
+
+.hero-sub {
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+  max-width: 460px;
+  line-height: 1.7;
+}
+
+/* ── Filter bar ── */
+.filter-bar {
+  border-bottom: 0.5px solid #e0ddd6;
+  padding: 0.85rem 0;
+  position: sticky;
+  top: 57px;
+  background: #faf9f6;
+  z-index: 90;
+}
+
+.filter-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-inner::-webkit-scrollbar { display: none; }
+
+.filter-label { color: var(--color-ink-faint); flex-shrink: 0; }
+
+.filter-chips { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+.filter-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 0.5px solid #e0ddd6;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.filter-chip:hover {
+  border-color: var(--color-ink-faint);
+  color: var(--color-ink);
+}
+
+.filter-chip--active {
+  background: var(--color-ink);
+  color: #fff;
+  border-color: var(--color-ink);
+}
+
+.pair-count {
+  color: var(--color-ink-faint);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Directory ── */
+.directory {
+  padding: 3rem 0;
+}
+</style>

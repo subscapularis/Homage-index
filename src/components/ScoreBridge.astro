@@ -1,0 +1,80 @@
+---
+const { matchScore, luxuryPrice, homagePrice } = Astro.props;
+const savings = luxuryPrice - homagePrice;
+const savingsPct = Math.round((savings / luxuryPrice) * 100);
+---
+
+<div class="bridge" aria-label={`Match score: ${matchScore} out of 100. Save $${savings.toLocaleString('en-US')}`}>
+  <div class="bridge-line" aria-hidden="true"></div>
+  <div class="score-pill">
+    <span class="score-num">{matchScore}</span>
+    <span class="score-sep" aria-hidden="true"></span>
+    <span class="score-detail">
+      <span class="t-label score-txt">Match score</span>
+      <span class="score-saving">Save ${savings.toLocaleString('en-US')} ({savingsPct}%)</span>
+    </span>
+  </div>
+</div>
+
+<style>
+.bridge {
+  position: relative;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bridge-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background: #e0ddd6;
+}
+
+.score-pill {
+  position: relative;
+  z-index: 1;
+  background: #faf9f6;
+  border: 0.5px solid #d0cdc6;
+  border-radius: 20px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.score-num {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-variant-numeric: lining-nums;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.score-sep {
+  width: 0.5px;
+  height: 18px;
+  background: #e0ddd6;
+  flex-shrink: 0;
+}
+
+.score-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.score-txt {
+  color: var(--color-ink-faint);
+}
+
+.score-saving {
+  font-size: 10px;
+  color: var(--color-ink-muted);
+  letter-spacing: 0.05em;
+}
+</style>
