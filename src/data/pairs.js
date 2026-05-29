@@ -29,6 +29,7 @@ export const pairs = [
       },
     },
 
+    // Default primary homage for dynamic details page [slug].astro comparison
     homage: {
       brand: 'San Martin',
       model: 'Water Ghost',
@@ -46,6 +47,100 @@ export const pairs = [
         origin: 'China',
       },
     },
+
+    // All homages in the grid on the homepage
+    homages: [
+      {
+        id: 'san-martin-water-ghost-sn004g',
+        brand: 'San Martin',
+        model: 'Water Ghost',
+        reference: 'SN004-G',
+        price: 189,
+        currency: 'USD',
+        image: '/images/san-martin-water-ghost-sn004g.jpg',
+        imageAlt: 'San Martin Water Ghost SN004-G black dial dive watch',
+        buyUrl: 'https://www.aliexpress.com/item/san-martin-water-ghost',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'NH35A',
+          waterResistance: '300m',
+          caseSize: '40mm',
+          origin: 'China',
+        },
+      },
+      {
+        id: 'pagani-design-pd-1661-submariner',
+        brand: 'Pagani Design',
+        model: 'PD-1661 Sub',
+        reference: 'PD-1661-S',
+        price: 89,
+        currency: 'USD',
+        image: '/images/pagani-design-submariner.jpg',
+        imageAlt: 'Pagani Design PD-1661 Submariner homage black dial',
+        buyUrl: 'https://www.aliexpress.com/item/pagani-design-submariner',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'NH35A',
+          waterResistance: '100m',
+          caseSize: '40mm',
+          origin: 'China',
+        },
+      },
+      {
+        id: 'steinhart-ocean-one-black',
+        brand: 'Steinhart',
+        model: 'Ocean One Black',
+        reference: '103-0658',
+        price: 460,
+        currency: 'USD',
+        image: '/images/steinhart-ocean-one.jpg',
+        imageAlt: 'Steinhart Ocean One Black dive watch',
+        buyUrl: 'https://www.steinhartwatches.de/en/diver-watch/ocean-one-double-green-ceramic-premium-939.html',
+        buyLabel: 'Shop on Steinhart',
+        specs: {
+          movement: 'SW200-1',
+          waterResistance: '300m',
+          caseSize: '42mm',
+          origin: 'Swiss',
+        },
+      },
+      {
+        id: 'invicta-pro-diver-8926ob',
+        brand: 'Invicta',
+        model: 'Pro Diver',
+        reference: '8926OB',
+        price: 85,
+        currency: 'USD',
+        image: '/images/invicta-pro-diver-8926ob.jpg',
+        imageAlt: 'Invicta Pro Diver 8926OB automatic black dial dive watch',
+        buyUrl: 'https://www.amazon.com/Invicta-8926OB-Collection-Stainless-Automatic/dp/B000JQFX1G',
+        buyLabel: 'Shop on Amazon',
+        specs: {
+          movement: 'NH35A',
+          waterResistance: '200m',
+          caseSize: '40mm',
+          origin: 'Japan Movt',
+        },
+      },
+      {
+        id: 'loreo-submariner-automatic',
+        brand: 'Loreo',
+        model: 'Submariner Auto',
+        reference: 'L9201G',
+        price: 75,
+        currency: 'USD',
+        image: '/images/loreo-submariner.jpg',
+        imageAlt: 'Loreo Submariner automatic black dial dive watch',
+        buyUrl: 'https://www.aliexpress.com/item/loreo-submariner-automatic',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'Seagull Auto',
+          waterResistance: '200m',
+          caseSize: '40mm',
+          origin: 'China',
+        },
+      }
+    ],
 
     // Overall visual similarity score out of 100
     matchScore: 94,
@@ -81,6 +176,7 @@ export const pairs = [
       },
     },
 
+    // Default primary homage for dynamic details page [slug].astro comparison
     homage: {
       brand: 'Pagani Design',
       model: 'Royal Homage',
@@ -98,6 +194,82 @@ export const pairs = [
         origin: 'China',
       },
     },
+
+    // All homages in the grid on the homepage
+    homages: [
+      {
+        id: 'pagani-design-pd-1661-royal',
+        brand: 'Pagani Design',
+        model: 'Royal Homage',
+        reference: 'PD-1661',
+        price: 79,
+        currency: 'USD',
+        image: '/images/pagani-design-pd-1661.jpg',
+        imageAlt: 'Pagani Design PD-1661 Royal Oak homage blue dial',
+        buyUrl: 'https://www.aliexpress.com/item/pagani-design-pd-1661',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'Miyota 8215',
+          waterResistance: '100m',
+          caseSize: '41mm',
+          origin: 'China',
+        },
+      },
+      {
+        id: 'cadisen-royal-oak-c8185',
+        brand: 'Cadisen',
+        model: 'Royal Oak',
+        reference: 'C8185',
+        price: 75,
+        currency: 'USD',
+        image: '/images/cadisen-royal-oak.jpg',
+        imageAlt: 'Cadisen C8185 Royal Oak homage blue dial automatic',
+        buyUrl: 'https://www.aliexpress.com/item/cadisen-royal-oak',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'Miyota 8215',
+          waterResistance: '50m',
+          caseSize: '40mm',
+          origin: 'China',
+        },
+      },
+      {
+        id: 'didun-design-royal-oak',
+        brand: 'Didun Design',
+        model: 'Royal',
+        reference: 'DD-15500',
+        price: 95,
+        currency: 'USD',
+        image: '/images/didun-design-royal.jpg',
+        imageAlt: 'Didun Design Royal Oak homage blue dial automatic watch',
+        buyUrl: 'https://www.aliexpress.com/item/didun-design-royal-oak',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'Citizen Auto',
+          waterResistance: '30m',
+          caseSize: '41mm',
+          origin: 'China',
+        },
+      },
+      {
+        id: 'specht-sohne-royal-oak',
+        brand: 'Specht & Sohne',
+        model: 'Royal Oak Homage',
+        reference: 'SP-15500',
+        price: 135,
+        currency: 'USD',
+        image: '/images/specht-sohne-royal.jpg',
+        imageAlt: 'Specht & Sohne Royal Oak homage blue dial automatic watch',
+        buyUrl: 'https://www.aliexpress.com/item/specht-sohne-royal-oak',
+        buyLabel: 'Shop on AliExpress',
+        specs: {
+          movement: 'NH35A',
+          waterResistance: '50m',
+          caseSize: '41mm',
+          origin: 'China',
+        },
+      }
+    ],
 
     matchScore: 88,
 
