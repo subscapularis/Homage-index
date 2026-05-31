@@ -1,11 +1,12 @@
 ---
 // WatchCard.astro
 // variant: 'luxury' | 'homage'
-const { watch, variant } = Astro.props;
+// comparisonUrl: optional link to the full comparison page (used on homepage simplified cards)
+const { watch, variant, simplified = false, comparisonUrl } = Astro.props;
 const isLuxury = variant === 'luxury';
 ---
 
-<div class={`watch-card watch-card--${variant}`}>
+<div class={`watch-card watch-card--${variant} ${simplified ? 'watch-card--simplified' : ''}`}>
   <!-- Image — hero of the card -->
   <div class="card-image">
     {watch.image
@@ -37,6 +38,13 @@ const isLuxury = variant === 'luxury';
     <span class={`card-tag t-label card-tag--${variant}`}>
       {isLuxury ? 'Original' : 'Homage'}
     </span>
+
+    {/* Similarity score on top right of the card within a circle */}
+    {simplified && watch.matchScore && (
+      <div class="card-score-circle" aria-label={`Similarity Score: ${watch.matchScore}%`}>
+        <span class="score-num">{watch.matchScore}</span>
+      </div>
+    )}
   </div>
 
   <!-- Identity + price -->
@@ -44,7 +52,7 @@ const isLuxury = variant === 'luxury';
     <div class="card-identity">
       <p class={`card-brand t-label brand--${variant}`}>{watch.brand}</p>
       <h3 class={`card-model model--${variant}`}>{watch.model}</h3>
-      <p class={`card-reference t-label reference--${variant}`}>{watch.reference}</p>
+      {!simplified && <p class={`card-reference t-label reference--${variant}`}>{watch.reference}</p>}
     </div>
     <div class="card-price-block">
       <p class={`card-price price--${variant}`}>
@@ -57,18 +65,22 @@ const isLuxury = variant === 'luxury';
   </div>
 
   <!-- Specs row -->
-  <div class={`card-divider divider--${variant}`}></div>
-  <dl class="specs-row">
-    {Object.entries(watch.specs).map(([key, val]) => (
-      <div class="spec-item">
-        <dd class={`spec-val t-display specval--${variant}`}>{val}</dd>
-        <dt class={`spec-key t-label speckey--${variant}`}>{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</dt>
-      </div>
-    ))}
-  </dl>
+  {!simplified && (
+    <>
+      <div class={`card-divider divider--${variant}`}></div>
+      <dl class="specs-row">
+        {Object.entries(watch.specs).map(([key, val]) => (
+          <div class="spec-item">
+            <dd class={`spec-val t-display specval--${variant}`}>{val}</dd>
+            <dt class={`spec-key t-label speckey--${variant}`}>{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</dt>
+          </div>
+        ))}
+      </dl>
+    </>
+  )}
 
   <!-- CTA -->
-  <div class={`card-divider divider--${variant}`}></div>
+  {!simplified && <div class={`card-divider divider--${variant}`}></div>}
   <div class="card-cta">
     <a
       href={watch.buyUrl}
@@ -79,6 +91,15 @@ const isLuxury = variant === 'luxury';
       {watch.buyLabel}
     </a>
   </div>
+
+  {/* Full Comparison link inside simplified cards */}
+  {simplified && comparisonUrl && (
+    <div class="card-comparison">
+      <a href={comparisonUrl} class="comparison-link t-label">
+        Full Comparison & Analysis →
+      </a>
+    </div>
+  )}
 </div>
 
 <style>
@@ -138,6 +159,7 @@ const isLuxury = variant === 'luxury';
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   font-size: 7px;
+  z-index: 5;
 }
 
 .card-tag--luxury {
@@ -150,6 +172,32 @@ const isLuxury = variant === 'luxury';
   background: rgba(26,26,26,0.9);
   color: #6a6a6a;
   border: 0.5px solid #333;
+}
+
+/* Similarity score circle on top right */
+.card-score-circle {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  z-index: 10;
+}
+
+.card-score-circle .score-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+  line-height: 1;
 }
 
 /* ── Body ── */
@@ -165,7 +213,7 @@ const isLuxury = variant === 'luxury';
 
 .card-brand { margin-bottom: 3px; }
 .brand--luxury { color: var(--color-ink-faint); }
-.brand--homage { color: var(--color-dark-muted); }
+.brand--homage { color: #787878; }
 
 .card-model {
   font-family: var(--font-display);
@@ -198,7 +246,7 @@ const isLuxury = variant === 'luxury';
 
 .card-price-label { }
 .pricelabel--luxury { color: var(--color-ink-faint); }
-.pricelabel--homage { color: var(--color-dark-muted); }
+.pricelabel--homage { color: #787878; }
 
 /* ── Divider ── */
 .card-divider { height: 0.5px; margin: 0 1rem; }
@@ -264,5 +312,73 @@ const isLuxury = variant === 'luxury';
 .cta--homage {
   background: var(--color-gold);
   color: var(--color-ink);
+}
+
+/* ── Simplified Card Styles for Homepage Grid ── */
+.watch-card--simplified {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.watch-card--simplified .card-body {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0.75rem 0.85rem 0.6rem;
+}
+
+.watch-card--simplified .card-identity {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.watch-card--simplified .card-brand {
+  margin-bottom: 1px;
+}
+
+.watch-card--simplified .card-model {
+  line-height: 1.25;
+  margin-top: 2px;
+}
+
+.watch-card--simplified .card-price-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.watch-card--simplified .card-cta {
+  padding: 0.4rem 0.85rem 0.5rem;
+}
+
+/* ── In-card comparison link ── */
+.card-comparison {
+  padding: 0 0.85rem 0.85rem;
+  margin-top: 0;
+}
+
+.card-comparison .comparison-link {
+  display: block;
+  text-align: center;
+  padding: 7px 0.5rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 0.5px solid #444;
+  color: #999;
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.card-comparison .comparison-link:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 </style>

@@ -44,18 +44,11 @@ import { pairs } from '../data/pairs.js';
             {pair.luxury.brand} {pair.luxury.model} {pair.luxury.reference} {pair.luxury.imageAlt.toLowerCase().includes('black') ? 'black dial' : 'blue dial'}
           </h2>
           
-          <!-- Shrunk grid of its homages -->
+          <!-- Grid of homages: 3 columns on desktop to make them bigger and reveal all gorgeous details -->
           <div class="shrunk-grid">
             {pair.homages.map((homage) => (
-              <WatchCard watch={homage} variant="homage" />
+              <WatchCard watch={homage} variant="homage" simplified={true} comparisonUrl={`/${pair.seo.slug}`} />
             ))}
-          </div>
-
-          <!-- Bottom full comparison button -->
-          <div class="group-footer">
-            <a href={`/${pair.seo.slug}`} class="t-label comparison-link">
-              Full Comparison & Analysis →
-            </a>
           </div>
         </article>
       ))}
@@ -185,6 +178,7 @@ import { pairs } from '../data/pairs.js';
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 3.5vw, 1.8rem);
   font-weight: 300;
+  font-variant-numeric: lining-nums;
   color: var(--color-ink);
   margin-bottom: 1.5rem;
   border-bottom: 0.5px solid #e0ddd6;
@@ -192,15 +186,16 @@ import { pairs } from '../data/pairs.js';
   letter-spacing: 0.02em;
 }
 
-/* Shrunk Grid for Homages */
+/* Homepage Grid: 3 columns on desktop to make cards bigger and visually legible */
 .shrunk-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
+  align-items: stretch;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 540px) {
   .shrunk-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -208,15 +203,18 @@ import { pairs } from '../data/pairs.js';
 
 @media (min-width: 768px) {
   .shrunk-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* ── Shrunk WatchCard Overrides ── */
+/* ── Homepage WatchCard Styling Overrides ── */
 .shrunk-grid :global(.watch-card) {
   border-radius: var(--radius-md);
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .shrunk-grid :global(.watch-card:hover) {
@@ -226,16 +224,30 @@ import { pairs } from '../data/pairs.js';
 }
 
 .shrunk-grid :global(.card-image) {
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 4 / 3;
+  width: 100%;
 }
 
 .shrunk-grid :global(.card-image img) {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .shrunk-grid :global(.card-body) {
-  padding: 0.6rem 0.85rem 0.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0.85rem 1rem 0.65rem;
   gap: 0.5rem;
+}
+
+.shrunk-grid :global(.card-identity) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 48px; /* standard height to align wrapping watch titles */
 }
 
 .shrunk-grid :global(.card-brand) {
@@ -244,72 +256,42 @@ import { pairs } from '../data/pairs.js';
 }
 
 .shrunk-grid :global(.card-model) {
-  font-size: 0.9rem;
-  margin-bottom: 1px;
-}
-
-.shrunk-grid :global(.card-reference) {
-  font-size: 7px;
-}
-
-.shrunk-grid :global(.card-price-block) {
-  text-align: right;
-}
-
-.shrunk-grid :global(.card-price) {
-  font-size: 1.1rem;
-}
-
-.shrunk-grid :global(.card-price-label) {
-  font-size: 7px;
-}
-
-.shrunk-grid :global(.card-divider) {
-  margin: 0 0.85rem;
-}
-
-.shrunk-grid :global(.specs-row) {
-  padding: 0.4rem 0.85rem;
-}
-
-.shrunk-grid :global(.spec-val) {
-  font-size: 0.7rem;
-}
-
-.shrunk-grid :global(.spec-key) {
-  font-size: 6px;
+  font-size: 0.95rem;
+  line-height: 1.25;
   margin-top: 1px;
 }
 
+.shrunk-grid :global(.card-price-block) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.shrunk-grid :global(.card-price) {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.shrunk-grid :global(.card-price-label) {
+  font-size: 6px;
+  margin-top: 2px;
+}
+
 .shrunk-grid :global(.card-cta) {
-  padding: 0.5rem 0.85rem 0.85rem;
+  padding: 0.4rem 1rem 1rem;
+  margin-top: auto;
 }
 
 .shrunk-grid :global(.cta-btn) {
-  padding: 6px 0.5rem;
+  padding: 7px 0.5rem;
   font-size: 8px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
-/* ── Group Footer and Link ── */
-.group-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1.25rem;
-}
-
-.comparison-link {
-  color: var(--color-ink-muted);
-  transition: color var(--transition);
-  border-bottom: 0.5px solid transparent;
-  padding-bottom: 2px;
-  font-size: 10px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.comparison-link:hover {
-  color: var(--color-ink);
-  border-bottom-color: var(--color-ink-faint);
+.shrunk-grid :global(.card-comparison) {
+  margin-top: auto;
 }
 </style>
