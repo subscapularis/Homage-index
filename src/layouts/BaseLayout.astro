@@ -59,7 +59,6 @@ const canonical = canonicalUrl ?? Astro.url.href;
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="wordmark" aria-label="Homage Index home">
-        <span class="wordmark-sub t-label">Est. 2025</span>
         <span class="wordmark-title">Homage Index</span>
         <span class="wordmark-tag t-label">Luxury inspiration · Accessible price</span>
       </a>
@@ -98,10 +97,10 @@ const canonical = canonicalUrl ?? Astro.url.href;
 
 .header-inner {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
 }
 
 .wordmark {
@@ -113,7 +112,7 @@ const canonical = canonicalUrl ?? Astro.url.href;
 
 .wordmark-sub {
   color: var(--color-ink-faint);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .wordmark-title {
@@ -128,7 +127,7 @@ const canonical = canonicalUrl ?? Astro.url.href;
 
 .wordmark-tag {
   color: var(--color-ink-faint);
-  margin-top: 5px;
+  margin-top: 3px;
   display: none;
 }
 
@@ -139,7 +138,8 @@ const canonical = canonicalUrl ?? Astro.url.href;
 .site-nav {
   display: flex;
   gap: 1.5rem;
-  align-items: center;
+  align-items: flex-end;
+  padding-bottom: 2px;
 }
 
 .nav-link {
