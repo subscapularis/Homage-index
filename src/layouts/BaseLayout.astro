@@ -107,12 +107,13 @@ const canonical = canonicalUrl ?? Astro.url.href;
 .wordmark {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
   text-decoration: none;
 }
 
 .wordmark-sub {
   color: var(--color-ink-faint);
+  margin-bottom: 4px;
 }
 
 .wordmark-title {
@@ -127,6 +128,7 @@ const canonical = canonicalUrl ?? Astro.url.href;
 
 .wordmark-tag {
   color: var(--color-ink-faint);
+  margin-top: 5px;
   display: none;
 }
 

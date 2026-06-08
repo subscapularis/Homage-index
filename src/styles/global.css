@@ -89,8 +89,8 @@ a {
 
 /* ── Typography ── */
 .t-label {
-  font-size: 9px;
-  letter-spacing: 0.25em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-family: var(--font-body);
   font-weight: 400;
