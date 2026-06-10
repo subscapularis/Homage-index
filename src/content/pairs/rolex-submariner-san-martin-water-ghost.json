@@ -1,0 +1,141 @@
+{
+  "category": "Dive Watches",
+  "pairNumber": "001",
+  "luxury": {
+    "brand": "Rolex",
+    "model": "Submariner Date",
+    "reference": "116610LN",
+    "price": 10300,
+    "currency": "USD",
+    "image": "/images/rolex-submariner-116610ln.jpg",
+    "imageAlt": "Rolex Submariner Date 116610LN black dial",
+    "buyUrl": "https://www.chrono24.com/rolex/submariner.htm",
+    "buyLabel": "View on Chrono24",
+    "specs": {
+      "movement": "Cal. 3235",
+      "waterResistance": "300m",
+      "caseSize": "41mm",
+      "origin": "Swiss"
+    }
+  },
+  "homage": {
+    "brand": "San Martin",
+    "model": "Water Ghost",
+    "reference": "SN004-G",
+    "price": 189,
+    "currency": "USD",
+    "image": "/images/san-martin-water-ghost-sn004g.jpg",
+    "imageAlt": "San Martin Water Ghost SN004-G black dial dive watch",
+    "buyUrl": "https://www.aliexpress.com/item/san-martin-water-ghost",
+    "buyLabel": "Shop on AliExpress",
+    "specs": {
+      "movement": "NH35A",
+      "waterResistance": "300m",
+      "caseSize": "40mm",
+      "origin": "China"
+    }
+  },
+  "homages": [
+    {
+      "id": "san-martin-water-ghost-sn004g",
+      "brand": "San Martin",
+      "model": "Water Ghost",
+      "reference": "SN004-G",
+      "price": 189,
+      "currency": "USD",
+      "matchScore": 94,
+      "image": "/images/san-martin-water-ghost-sn004g.jpg",
+      "imageAlt": "San Martin Water Ghost SN004-G black dial dive watch",
+      "buyUrl": "https://www.aliexpress.com/item/san-martin-water-ghost",
+      "buyLabel": "Shop on AliExpress",
+      "specs": {
+        "movement": "NH35A",
+        "waterResistance": "300m",
+        "caseSize": "40mm",
+        "origin": "China"
+      }
+    },
+    {
+      "id": "pagani-design-pd-1661-submariner",
+      "brand": "Pagani Design",
+      "model": "PD-1661 Sub",
+      "reference": "PD-1661-S",
+      "price": 89,
+      "currency": "USD",
+      "matchScore": 85,
+      "image": "/images/pagani-design-submariner.jpg",
+      "imageAlt": "Pagani Design PD-1661 Submariner homage black dial",
+      "buyUrl": "https://www.aliexpress.com/item/pagani-design-submariner",
+      "buyLabel": "Shop on AliExpress",
+      "specs": {
+        "movement": "NH35A",
+        "waterResistance": "100m",
+        "caseSize": "40mm",
+        "origin": "China"
+      }
+    },
+    {
+      "id": "steinhart-ocean-one-black",
+      "brand": "Steinhart",
+      "model": "Ocean One Black",
+      "reference": "103-0658",
+      "price": 460,
+      "currency": "USD",
+      "matchScore": 90,
+      "image": "/images/steinhart-ocean-one.jpg",
+      "imageAlt": "Steinhart Ocean One Black dive watch",
+      "buyUrl": "https://www.steinhartwatches.de/en/diver-watch/ocean-one-double-green-ceramic-premium-939.html",
+      "buyLabel": "Shop on Steinhart",
+      "specs": {
+        "movement": "SW200-1",
+        "waterResistance": "300m",
+        "caseSize": "42mm",
+        "origin": "Swiss"
+      }
+    },
+    {
+      "id": "invicta-pro-diver-8926ob",
+      "brand": "Invicta",
+      "model": "Pro Diver",
+      "reference": "8926OB",
+      "price": 85,
+      "currency": "USD",
+      "matchScore": 82,
+      "image": "/images/invicta-pro-diver-8926ob.jpg",
+      "imageAlt": "Invicta Pro Diver 8926OB automatic black dial dive watch",
+      "buyUrl": "https://www.amazon.com/Invicta-8926OB-Collection-Stainless-Automatic/dp/B000JQFX1G",
+      "buyLabel": "Shop on Amazon",
+      "specs": {
+        "movement": "NH35A",
+        "waterResistance": "200m",
+        "caseSize": "40mm",
+        "origin": "Japan Movt"
+      }
+    },
+    {
+      "id": "loreo-submariner-automatic",
+      "brand": "Loreo",
+      "model": "Submariner Auto",
+      "reference": "L9201G",
+      "price": 75,
+      "currency": "USD",
+      "matchScore": 80,
+      "image": "/images/loreo-submariner.jpg",
+      "imageAlt": "Loreo Submariner automatic black dial dive watch",
+      "buyUrl": "https://www.aliexpress.com/item/loreo-submariner-automatic",
+      "buyLabel": "Shop on AliExpress",
+      "specs": {
+        "movement": "Seagull Auto",
+        "waterResistance": "200m",
+        "caseSize": "40mm",
+        "origin": "China"
+      }
+    }
+  ],
+  "matchScore": 94,
+  "seo": {
+    "title": "Best Rolex Submariner Homage — San Martin Water Ghost Review | Homage Index",
+    "description": "Looking for the best Rolex Submariner homage? The San Martin Water Ghost scores 94/100 for visual similarity at just $189. Full comparison, specs, and where to buy.",
+    "slug": "rolex-submariner-homage"
+  }
+}

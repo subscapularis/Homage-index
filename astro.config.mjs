@@ -1,4 +1,4 @@
-import { defineConfig, fontProviders, svgoOptimizer } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 export default defineConfig({
   site: 'https://homageindex.com',
@@ -7,9 +7,6 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   prefetch: true,
-  experimental: {
-    svgOptimizer: svgoOptimizer()
-  },
   fonts: [
     {
       name: 'Cormorant Garamond',

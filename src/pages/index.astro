@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WatchCard from '../components/WatchCard.astro';
-import { pairs } from '../data/pairs.js';
+import { getCollection } from 'astro:content';
+
+const pairs = await getCollection('pairs');
 ---
 
 <BaseLayout
@@ -38,16 +40,16 @@ import { pairs } from '../data/pairs.js';
   <section class="directory">
     <div class="container">
       {pairs.map((pair) => (
-        <article class="luxury-group" data-category={pair.category} aria-label={`Homages for ${pair.luxury.brand} ${pair.luxury.model}`}>
+        <article class="luxury-group" data-category={pair.data.category} aria-label={`Homages for ${pair.data.luxury.brand} ${pair.data.luxury.model}`}>
           <!-- Luxury watch heading exactly as user requested -->
           <h2 class="luxury-title">
-            {pair.luxury.brand} {pair.luxury.model} {pair.luxury.reference} {pair.luxury.imageAlt.toLowerCase().includes('black') ? 'black dial' : 'blue dial'}
+            {pair.data.luxury.brand} {pair.data.luxury.model} {pair.data.luxury.reference} {pair.data.luxury.imageAlt.toLowerCase().includes('black') ? 'black dial' : 'blue dial'}
           </h2>
           
           <!-- Grid of homages: 3 columns on desktop to make them bigger and reveal all gorgeous details -->
           <div class="shrunk-grid">
-            {pair.homages.map((homage) => (
-              <WatchCard watch={homage} variant="homage" simplified={true} comparisonUrl={`/${pair.seo.slug}`} />
+            {pair.data.homages.map((homage) => (
+              <WatchCard watch={homage} variant="homage" simplified={true} comparisonUrl={`/${pair.data.seo.slug}`} />
             ))}
           </div>
         </article>

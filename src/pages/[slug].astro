@@ -2,27 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WatchCard from '../components/WatchCard.astro';
 import ScoreBridge from '../components/ScoreBridge.astro';
-import { pairs, getPairBySlug, getAllSlugs } from '../data/pairs.js';
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
-  return getAllSlugs().map(slug => ({ params: { slug } }));
+export async function getStaticPaths() {
+  const pairs = await getCollection('pairs');
+  return pairs.map(entry => ({
+    params: { slug: entry.data.seo.slug },
+    props: { pair: entry },
+  }));
 }
 
-const { slug } = Astro.params;
-const pair = getPairBySlug(slug);
+const { pair } = Astro.props;
 
-if (!pair) return Astro.redirect('/404');
-
-const savings = pair.luxury.price - pair.homage.price;
-const savingsPct = Math.round((savings / pair.luxury.price) * 100);
+const savings = pair.data.luxury.price - pair.data.homage.price;
+const savingsPct = Math.round((savings / pair.data.luxury.price) * 100);
 
 // Structured data for this pair page
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": pair.seo.title,
-  "description": pair.seo.description,
-  "url": `https://homageindex.com/${pair.seo.slug}`,
+  "headline": pair.data.seo.title,
+  "description": pair.data.seo.description,
+  "url": `https://homageindex.com/${pair.data.seo.slug}`,
   "publisher": {
     "@type": "Organization",
     "name": "Homage Index",
@@ -32,9 +33,9 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title={pair.seo.title}
-  description={pair.seo.description}
-  canonicalUrl={`https://homageindex.com/${pair.seo.slug}`}
+  title={pair.data.seo.title}
+  description={pair.data.seo.description}
+  canonicalUrl={`https://homageindex.com/${pair.data.seo.slug}`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} slot="head" />
 
@@ -44,17 +45,17 @@ const structuredData = {
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/" class="t-label bc-link">All Pairs</a>
       <span class="t-label bc-sep" aria-hidden="true">→</span>
-      <span class="t-label bc-current">{pair.luxury.brand} {pair.luxury.model}</span>
+      <span class="t-label bc-current">{pair.data.luxury.brand} {pair.data.luxury.model}</span>
     </nav>
 
     <!-- Page heading -->
     <header class="page-header">
-      <p class="t-label page-eyebrow">{pair.category} · Pair {pair.pairNumber}</p>
+      <p class="t-label page-eyebrow">{pair.data.category} · Pair {pair.data.pairNumber}</p>
       <h1 class="page-title">
-        The Best {pair.luxury.brand} {pair.luxury.model} Homage
+        The Best {pair.data.luxury.brand} {pair.data.luxury.model} Homage
       </h1>
       <p class="page-sub">
-        Save ${savings.toLocaleString('en-US')} ({savingsPct}%) with a {pair.matchScore}/100 visual match.
+        Save ${savings.toLocaleString('en-US')} ({savingsPct}%) with a {pair.data.matchScore}/100 visual match.
       </p>
     </header>
 
@@ -62,23 +63,23 @@ const structuredData = {
     <section class="comparison-section" aria-label="Watch comparison">
       <div class="comparison-layout">
         <div class="col-luxury">
-          <WatchCard watch={pair.luxury} variant="luxury" />
+          <WatchCard watch={pair.data.luxury} variant="luxury" />
         </div>
         <div class="col-bridge col-bridge--mobile">
           <ScoreBridge
-            matchScore={pair.matchScore}
-            luxuryPrice={pair.luxury.price}
-            homagePrice={pair.homage.price}
+            matchScore={pair.data.matchScore}
+            luxuryPrice={pair.data.luxury.price}
+            homagePrice={pair.data.homage.price}
           />
         </div>
         <div class="col-homage">
-          <WatchCard watch={pair.homage} variant="homage" />
+          <WatchCard watch={pair.data.homage} variant="homage" />
         </div>
         <div class="col-bridge col-bridge--desktop" aria-hidden="true">
           <ScoreBridge
-            matchScore={pair.matchScore}
-            luxuryPrice={pair.luxury.price}
-            homagePrice={pair.homage.price}
+            matchScore={pair.data.matchScore}
+            luxuryPrice={pair.data.luxury.price}
+            homagePrice={pair.data.homage.price}
           />
         </div>
       </div>
@@ -87,12 +88,12 @@ const structuredData = {
     <!-- Editorial content — this is your SEO body -->
     <section class="editorial" aria-label="Full analysis">
 
-      <h2 class="ed-heading">Why the {pair.homage.brand} {pair.homage.model}?</h2>
+      <h2 class="ed-heading">Why the {pair.data.homage.brand} {pair.data.homage.model}?</h2>
       <p class="ed-body">
         <!-- Replace this with real editorial content per pair -->
-        The {pair.homage.brand} {pair.homage.model} scores {pair.matchScore} out of 100 for visual
-        similarity to the {pair.luxury.brand} {pair.luxury.model}. At ${pair.homage.price.toLocaleString('en-US')}
-        versus the {pair.luxury.brand}'s retail price of ${pair.luxury.price.toLocaleString('en-US')},
+        The {pair.data.homage.brand} {pair.data.homage.model} scores {pair.data.matchScore} out of 100 for visual
+        similarity to the {pair.data.luxury.brand} {pair.data.luxury.model}. At ${pair.data.homage.price.toLocaleString('en-US')}
+        versus the {pair.data.luxury.brand}'s retail price of ${pair.data.luxury.price.toLocaleString('en-US')},
         you save {savingsPct}% without meaningfully compromising on the design that made the original iconic.
       </p>
 
