@@ -1,10 +1,14 @@
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, svgoOptimizer } from 'astro/config';
 
 export default defineConfig({
   site: 'https://homageindex.com',
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
+  },
+  prefetch: true,
+  experimental: {
+    svgOptimizer: svgoOptimizer()
   },
   fonts: [
     {
