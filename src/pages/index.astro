@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WatchCard from '../components/WatchCard.astro';
+import SearchBar from '../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 
 const pairs = await getCollection('pairs');
@@ -32,7 +33,9 @@ const pairs = await getCollection('pairs');
         <span class="filter-chip t-label" role="listitem">Pilot</span>
         <span class="filter-chip t-label" role="listitem">Dress</span>
       </div>
-      <span class="t-label pair-count">{pairs.length} pairs</span>
+      <div class="filter-actions">
+        <SearchBar />
+      </div>
     </div>
   </section>
 
@@ -161,10 +164,12 @@ const pairs = await getCollection('pairs');
   border-color: var(--color-ink);
 }
 
-.pair-count {
-  color: var(--color-ink-faint);
+.filter-actions {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 480px;
   margin-left: auto;
-  flex-shrink: 0;
 }
 
 /* ── Directory ── */
