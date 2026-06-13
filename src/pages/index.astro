@@ -168,8 +168,20 @@ const pairs = await getCollection('pairs');
   display: flex;
   align-items: center;
   flex: 1;
-  max-width: 480px;
+  max-width: 100%;
   margin-left: auto;
+}
+
+@media (min-width: 540px) {
+  .filter-actions {
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (min-width: 768px) {
+  .filter-actions {
+    max-width: calc((100% - 3rem) / 3);
+  }
 }
 
 /* ── Directory ── */
