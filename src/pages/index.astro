@@ -73,10 +73,16 @@ const pairs = await getCollection('pairs');
       // Add active class to clicked chip
       chip.classList.add('filter-chip--active');
 
-      const category = chip.textContent.trim().toLowerCase();
+      const textContent = chip.textContent;
+      if (!textContent) return;
+      
+      const category = textContent.trim().toLowerCase();
 
       groups.forEach(group => {
-        const groupCategory = group.getAttribute('data-category').trim().toLowerCase();
+        const categoryAttr = group.getAttribute('data-category');
+        if (!categoryAttr) return;
+
+        const groupCategory = categoryAttr.trim().toLowerCase();
         
         // Simple matching logic: "all" matches everything, else check sub-string
         if (category === 'all' || groupCategory.includes(category)) {
