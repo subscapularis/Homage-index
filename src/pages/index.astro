@@ -25,13 +25,15 @@ const pairs = await getCollection('pairs');
   <!-- Filter bar -->
   <section class="filter-bar">
     <div class="container filter-inner">
-      <span class="t-label filter-label">Browse by</span>
-      <div class="filter-chips" role="list">
-        <span class="filter-chip filter-chip--active t-label" role="listitem">All</span>
-        <span class="filter-chip t-label" role="listitem">Dive</span>
-        <span class="filter-chip t-label" role="listitem">Dress Sports</span>
-        <span class="filter-chip t-label" role="listitem">Pilot</span>
-        <span class="filter-chip t-label" role="listitem">Dress</span>
+      <div class="filter-scroll">
+        <span class="t-label filter-label">Browse by</span>
+        <div class="filter-chips" role="list">
+          <span class="filter-chip filter-chip--active t-label" role="listitem">All</span>
+          <span class="filter-chip t-label" role="listitem">Dive</span>
+          <span class="filter-chip t-label" role="listitem">Dress Sports</span>
+          <span class="filter-chip t-label" role="listitem">Pilot</span>
+          <span class="filter-chip t-label" role="listitem">Dress</span>
+        </div>
       </div>
       <div class="filter-actions">
         <SearchBar />
@@ -128,22 +130,50 @@ const pairs = await getCollection('pairs');
 /* ── Filter bar ── */
 .filter-bar {
   border-bottom: 0.5px solid #e0ddd6;
-  padding: 0.85rem 0;
-  position: sticky;
-  top: 49px;
+  padding: 0.5rem 0;
   background: #faf9f6;
   z-index: 90;
+  position: sticky;
+  top: 49px;
+}
+
+@media (min-width: 540px) {
+  .filter-bar {
+    padding: 0.85rem 0;
+  }
 }
 
 .filter-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+@media (min-width: 540px) {
+  .filter-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.filter-scroll {
   display: flex;
   align-items: center;
   gap: 1rem;
   overflow-x: auto;
   scrollbar-width: none;
+  width: 100%;
 }
 
-.filter-inner::-webkit-scrollbar { display: none; }
+.filter-scroll::-webkit-scrollbar { display: none; }
+
+@media (min-width: 540px) {
+  .filter-scroll {
+    flex: 1;
+    min-width: 0;
+  }
+}
 
 .filter-label { color: var(--color-ink-faint); flex-shrink: 0; }
 
@@ -173,20 +203,21 @@ const pairs = await getCollection('pairs');
 .filter-actions {
   display: flex;
   align-items: center;
-  flex: 1;
-  max-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
   margin-left: auto;
 }
 
 @media (min-width: 540px) {
   .filter-actions {
-    max-width: calc((100% - 1.5rem) / 2);
+    width: calc((100% - 1.5rem) / 2);
+    max-width: none;
   }
 }
 
 @media (min-width: 768px) {
   .filter-actions {
-    max-width: calc((100% - 3rem) / 3);
+    width: calc((100% - 3rem) / 3);
   }
 }
 
@@ -201,7 +232,7 @@ const pairs = await getCollection('pairs');
 
 .luxury-title {
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  font-size: clamp(1.75rem, 4.5vw, 2.25rem);
   font-weight: 300;
   font-variant-numeric: lining-nums;
   color: var(--color-ink);
