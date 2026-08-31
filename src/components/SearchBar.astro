@@ -5,7 +5,7 @@
 <div class="search-wrapper">
   <input 
     type="text" 
-    class="search-input t-label" 
+    class="search-input" 
     placeholder="Search homages..." 
     aria-label="Search homages"
   />
@@ -41,17 +41,14 @@
   border: none;
   background: transparent;
   outline: none;
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   color: var(--color-ink);
   min-width: 0; /* Prevents input from breaking flexbox */
 }
 
 .search-input::placeholder {
   color: var(--color-ink-faint);
-  font-family: var(--font-body); /* Matching the t-label styling */
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
 }
 
 .search-button {

@@ -189,7 +189,7 @@ const pairs = await getCollection('pairs');
   transition: all var(--transition);
 }
 
-.filter-chip:hover {
+.filter-chip:not(.filter-chip--active):hover {
   border-color: var(--color-ink-faint);
   color: var(--color-ink);
 }
