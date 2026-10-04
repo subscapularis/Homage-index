@@ -9,6 +9,15 @@
 
 #### 📅 October 4, 2026
 
+- [x] **Filter Chips Keyboard & Screen Reader Accessibility (Issue #10)**:
+  - Converted category filter chips from non-interactive `<span>` elements into semantic `<button type="button">` elements.
+  - Set `role="group"` and `aria-label="Category filters"` on the container with dynamic `aria-pressed="true" / "false"` state updates.
+  - Preserved exact pill height (28px) by enforcing `line-height: 1.6` and `display: inline-flex` on `.filter-chip` to prevent browser button line-height collapse.
+  - Added high-contrast `:focus-visible` styling (`outline: 2px solid var(--color-ink)`) for keyboard tabbing navigation.
+  - Handled mobile drawer `visibility: hidden` when closed to prevent invisible offscreen keyboard focus.
+  - ⚠️ **Key Learning / Gotcha (Scoped CSS vs Global Utility Typography)**:
+    - *The Mistake*: During the conversion to `<button>`, defensive reset properties (`font-family: inherit; font-size: inherit; letter-spacing: inherit; text-transform: inherit; font-weight: inherit;`) were added directly to `.filter-chip`. Because Astro scopes component styles with attribute selectors (`[data-astro-cid-...]`), `.filter-chip` has higher specificity `(0, 2, 0)` than the global `.t-label` class `(0, 1, 0)`. The `inherit` values overrode `.t-label`, inheriting `body` styles (`text-transform: none`, `letter-spacing: normal`, `font-size: 16px`) instead of `.t-label`'s `uppercase`, `0.2em` tracking, and `11px` size, causing the button inner text to visually change to mixed-case standard text.
+    - *The Solution*: Do not set font/text `inherit` rules on scoped component selectors when elements share a global utility class like `.t-label`. Confine component-level button resets strictly to box model and layout properties (`display: inline-flex`, `line-height: 1.6`, `background: transparent`, `padding`, `border-radius`), leaving typography styling to `.t-label`.
 - [x] **Filter Pill Hover Accentuation**:
   - Matched the hover border on inactive filter pills to `var(--color-ink)` (solid black), giving them the same bold, distinct accentuation as the search bar and filter button.
 - [x] **Enhanced Border and Outline Visibility Across the Site**:

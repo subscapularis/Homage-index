@@ -74,12 +74,10 @@ The Issue: The editorial sections display development placeholder text directly 
 "Be honest here — movement quality difference..."
 Recommendation: Either pull these notes from the content JSON file or hide the section if editorial notes aren't provided.
 4. Accessibility (a11y) & Contrast Issues
-♿ 10. Filter Chips Are Inaccessible to Keyboard Users
-File: 
-
-src/pages/index.astro:30-36
-The Issue: The chips are implemented as <span class="filter-chip"> instead of <button type="button">.
-Impact: Users navigating with Tab or screen readers cannot focus, tab into, or activate any of the category filters.
+✅ 10. Filter Chips Are Inaccessible to Keyboard Users (RESOLVED)
+File: src/pages/index.astro:30-38
+The Issue: The chips were previously implemented as <span class="filter-chip"> instead of <button type="button">.
+Resolution: Converted chips to <button type="button"> with role="group" aria-label="Category filters", dynamic aria-pressed="true" / "false" toggling, line-height: 1.6 to strictly preserve pill dimensions (28px height), and high-contrast :focus-visible outlines for keyboard accessibility.
 🎨 11. Low Contrast on Dark Homage Cards
 File: 
 

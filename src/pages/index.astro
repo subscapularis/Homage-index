@@ -28,12 +28,12 @@ const pairs = await getCollection('pairs');
       <div class="filter-drawer" id="filter-drawer">
         <div class="filter-scroll">
           <span class="t-label filter-label">Browse by</span>
-          <div class="filter-chips" role="list">
-            <span class="filter-chip filter-chip--active t-label" role="listitem">All</span>
-            <span class="filter-chip t-label" role="listitem">Dive</span>
-            <span class="filter-chip t-label" role="listitem">Dress Sports</span>
-            <span class="filter-chip t-label" role="listitem">Pilot</span>
-            <span class="filter-chip t-label" role="listitem">Dress</span>
+          <div class="filter-chips" role="group" aria-label="Category filters">
+            <button type="button" class="filter-chip filter-chip--active t-label" aria-pressed="true">All</button>
+            <button type="button" class="filter-chip t-label" aria-pressed="false">Dive</button>
+            <button type="button" class="filter-chip t-label" aria-pressed="false">Dress Sports</button>
+            <button type="button" class="filter-chip t-label" aria-pressed="false">Pilot</button>
+            <button type="button" class="filter-chip t-label" aria-pressed="false">Dress</button>
           </div>
         </div>
       </div>
@@ -110,8 +110,12 @@ const pairs = await getCollection('pairs');
   const groups = document.querySelectorAll('.luxury-group');
 
   function applyCategoryFilter(chipElement: Element) {
-    chips.forEach(c => c.classList.remove('filter-chip--active'));
+    chips.forEach(c => {
+      c.classList.remove('filter-chip--active');
+      c.setAttribute('aria-pressed', 'false');
+    });
     chipElement.classList.add('filter-chip--active');
+    chipElement.setAttribute('aria-pressed', 'true');
 
     const textContent = chipElement.textContent;
     if (!textContent) return;
@@ -346,14 +350,16 @@ const pairs = await getCollection('pairs');
     display: grid;
     grid-template-rows: 0fr;
     opacity: 0;
+    visibility: hidden;
     margin-bottom: 0;
-    transition: grid-template-rows 0.22s ease, opacity 0.18s ease, margin-bottom 0.22s ease;
+    transition: grid-template-rows 0.22s ease, opacity 0.18s ease, margin-bottom 0.22s ease, visibility 0.22s ease;
     width: 100%;
   }
 
   .filter-drawer.filter-drawer--open {
     grid-template-rows: 1fr;
     opacity: 1;
+    visibility: visible;
     margin-bottom: 0.65rem;
   }
 
@@ -374,6 +380,7 @@ const pairs = await getCollection('pairs');
     flex: 1;
     min-width: 0;
     display: block;
+    visibility: visible;
     margin: 0;
   }
 }
@@ -394,6 +401,11 @@ const pairs = await getCollection('pairs');
 .filter-chips { display: flex; gap: 0.5rem; flex-shrink: 0; }
 
 .filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.6;
+  background: transparent;
   padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid var(--color-border);
@@ -401,6 +413,11 @@ const pairs = await getCollection('pairs');
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition);
+}
+
+.filter-chip:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
 }
 
 .filter-chip:not(.filter-chip--active):hover {
