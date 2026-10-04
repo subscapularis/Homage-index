@@ -30,15 +30,15 @@ const savingsPct = Math.round((savings / luxuryPrice) * 100);
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 0.5px;
-  background: #e0ddd6;
+  width: 1px;
+  background: var(--color-border);
 }
 
 .score-pill {
   position: relative;
   z-index: 1;
   background: #faf9f6;
-  border: 0.5px solid #d0cdc6;
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   padding: 6px 16px;
   display: flex;
@@ -56,9 +56,9 @@ const savingsPct = Math.round((savings / luxuryPrice) * 100);
 }
 
 .score-sep {
-  width: 0.5px;
+  width: 1px;
   height: 18px;
-  background: #e0ddd6;
+  background: var(--color-border);
   flex-shrink: 0;
 }
 

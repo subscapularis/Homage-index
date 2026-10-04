@@ -11,11 +11,15 @@
   --color-gold: #c8b89a;
   --color-gold-dark: #a89878;
 
+  --color-border: #cdc8be;
+  --color-border-subtle: #dbd7ce;
+  --color-border-strong: #b8b3a7;
+
   --color-dark-bg: #111111;
   --color-dark-surface: #1a1a1a;
-  --color-dark-border: #2a2a2a;
-  --color-dark-muted: #4a4a4a;
-  --color-dark-faint: #2e2e2e;
+  --color-dark-border: #383838;
+  --color-dark-muted: #666666;
+  --color-dark-faint: #333333;
   --color-dark-text: #e8e0d4;
 
   --radius-sm: 4px;
