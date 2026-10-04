@@ -9,6 +9,8 @@
 
 #### 📅 October 4, 2026
 
+- [x] **Filter Pill Hover Accentuation**:
+  - Matched the hover border on inactive filter pills to `var(--color-ink)` (solid black), giving them the same bold, distinct accentuation as the search bar and filter button.
 - [x] **Enhanced Border and Outline Visibility Across the Site**:
   - Replaced subpixel `0.5px` borders with crisp `1px` lines across all components to eliminate blurry/faint hairlines on standard and high-DPI screens.
   - Introduced design tokens in `src/styles/global.css`:
