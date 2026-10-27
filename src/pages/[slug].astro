@@ -50,13 +50,15 @@ const structuredData = {
 
     <!-- Page heading -->
     <header class="page-header">
-      <p class="t-label page-eyebrow">{pair.data.category} · Pair {pair.data.pairNumber}</p>
-      <h1 class="page-title">
-        The Best {pair.data.luxury.brand} {pair.data.luxury.model} Homage
-      </h1>
-      <p class="page-sub">
-        Save ${savings.toLocaleString('en-US')} ({savingsPct}%) with a {pair.data.matchScore}/100 visual match.
-      </p>
+      <div class="page-header-inner">
+        <p class="t-label page-eyebrow">{pair.data.category} · Pair {pair.data.pairNumber}</p>
+        <h1 class="page-title">
+          The Best {pair.data.luxury.brand} {pair.data.luxury.model} Homage
+        </h1>
+        <p class="page-sub">
+          Save ${savings.toLocaleString('en-US')} ({savingsPct}%) with a {pair.data.matchScore}/100 visual match.
+        </p>
+      </div>
     </header>
 
     <!-- Comparison -->
@@ -87,35 +89,35 @@ const structuredData = {
 
     <!-- Editorial content — this is your SEO body -->
     <section class="editorial" aria-label="Full analysis">
+      <div class="editorial-inner">
+        <h2 class="ed-heading">Why the {pair.data.homage.brand} {pair.data.homage.model}?</h2>
+        <p class="ed-body">
+          <!-- Replace this with real editorial content per pair -->
+          The {pair.data.homage.brand} {pair.data.homage.model} scores {pair.data.matchScore} out of 100 for visual
+          similarity to the {pair.data.luxury.brand} {pair.data.luxury.model}. At ${pair.data.homage.price.toLocaleString('en-US')}
+          versus the {pair.data.luxury.brand}'s retail price of ${pair.data.luxury.price.toLocaleString('en-US')},
+          you save {savingsPct}% without meaningfully compromising on the design that made the original iconic.
+        </p>
 
-      <h2 class="ed-heading">Why the {pair.data.homage.brand} {pair.data.homage.model}?</h2>
-      <p class="ed-body">
-        <!-- Replace this with real editorial content per pair -->
-        The {pair.data.homage.brand} {pair.data.homage.model} scores {pair.data.matchScore} out of 100 for visual
-        similarity to the {pair.data.luxury.brand} {pair.data.luxury.model}. At ${pair.data.homage.price.toLocaleString('en-US')}
-        versus the {pair.data.luxury.brand}'s retail price of ${pair.data.luxury.price.toLocaleString('en-US')},
-        you save {savingsPct}% without meaningfully compromising on the design that made the original iconic.
-      </p>
+        <h2 class="ed-heading">What the homage gets right</h2>
+        <p class="ed-body">
+          Add your editorial notes here. Dial finishing, hand set accuracy, bezel insert quality,
+          bracelet feel, lume application. This is where the community knowledge lives.
+        </p>
 
-      <h2 class="ed-heading">What the homage gets right</h2>
-      <p class="ed-body">
-        Add your editorial notes here. Dial finishing, hand set accuracy, bezel insert quality,
-        bracelet feel, lume application. This is where the community knowledge lives.
-      </p>
+        <h2 class="ed-heading">Where it cuts corners</h2>
+        <p class="ed-body">
+          Be honest here — movement quality difference, finishing on hidden surfaces,
+          bracelet taper, end links, clasp. Your readers respect honesty over cheerleading.
+        </p>
 
-      <h2 class="ed-heading">Where it cuts corners</h2>
-      <p class="ed-body">
-        Be honest here — movement quality difference, finishing on hidden surfaces,
-        bracelet taper, end links, clasp. Your readers respect honesty over cheerleading.
-      </p>
-
-      <h2 class="ed-heading">Who should buy this</h2>
-      <p class="ed-body">
-        New to watches and want to try the look before committing to the real thing?
-        Daily wearer who doesn't want anxiety over scratches? Collector who wants the design
-        on a beater? Be specific. Specific recommendations convert.
-      </p>
-
+        <h2 class="ed-heading">Who should buy this</h2>
+        <p class="ed-body">
+          New to watches and want to try the look before committing to the real thing?
+          Daily wearer who doesn't want anxiety over scratches? Collector who wants the design
+          on a beater? Be specific. Specific recommendations convert.
+        </p>
+      </div>
     </section>
 
     <!-- Back link -->
@@ -142,6 +144,10 @@ const structuredData = {
 .page-header {
   padding: 2rem 0 2.5rem;
   border-bottom: 1px solid var(--color-border);
+  width: 100%;
+}
+
+.page-header-inner {
   max-width: 600px;
 }
 
@@ -216,9 +222,13 @@ const structuredData = {
 
 /* ── Editorial ── */
 .editorial {
-  max-width: 640px;
+  width: 100%;
   padding: 3rem 0;
   border-bottom: 1px solid var(--color-border);
+}
+
+.editorial-inner {
+  max-width: 640px;
 }
 
 .ed-heading {

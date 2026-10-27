@@ -1,11 +1,17 @@
 # Homage Index — Progress Tracker
 
 ## Status: In Progress
-**Last Updated**: October 4, 2026
+**Last Updated**: October 27, 2026
 
 ---
 
 ### Session Changelog & Completed Tasks
+
+#### 📅 October 27, 2026
+
+- [x] **Full-Width Separation Lines on Comparison Page (`[slug].astro`)**:
+  - Expanded the top separation line (`.page-header`) and bottom separation line (`.editorial`) to 100% width of `.container`, matching the full width of the middle line (`.comparison-section`).
+  - Wrapped header and editorial text inside `.page-header-inner` (`max-width: 600px`) and `.editorial-inner` (`max-width: 640px`) to maintain clean typographic line-lengths while allowing borders to stretch across the full container.
 
 #### 📅 October 4, 2026
 
